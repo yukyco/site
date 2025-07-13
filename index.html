@@ -19,68 +19,68 @@
             min-height: 100vh;
             color: #333;
         }
-
-    #starCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 9999;
-    }
+    
+        #starCanvas {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          pointer-events: none;
+          z-index: 9999;
+        }
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
 
-.header {
-    text-align: center;
-    margin-bottom: 30px;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
+    .header {
+        text-align: center;
+        margin-bottom: 30px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
 
-iframe {
-    margin-top: 20px;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.header a {
-    display: block;
-    margin: 10px auto;
-    padding: 12px 24px;
-    background-color: #3498db;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 16px;
-    max-width: 300px;
-    transition: background-color 0.3s ease;
-}
-
-.header a:hover {
-    background-color: #2980b9;
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-    .header iframe,
+    iframe {
+        margin-top: 20px;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
     .header a {
-        width: 90%;
+        display: block;
+        margin: 10px auto;
+        padding: 12px 24px;
+        background-color: #3498db;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 16px;
+        max-width: 300px;
+        transition: background-color 0.3s ease;
     }
-
-    .header h1 {
-        font-size: 1.4em;
+    
+    .header a:hover {
+        background-color: #2980b9;
     }
+    
+    /* レスポンシブ対応 */
+    @media (max-width: 768px) {
+        .header iframe,
+        .header a {
+            width: 90%;
+        }
+    
+        .header h1 {
+            font-size: 1.4em;
+        }
 
     .header p {
         font-size: 0.95em;
