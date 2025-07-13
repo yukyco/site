@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yukyco’s Design | 横浜のWebデザイナー</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
+            background: #fff; /* 背景を白など明るくする */
+            min-height: 100vh;
+            color: #333;
+        }
+
+    #starCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+iframe {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.header a {
+    display: block;
+    margin: 10px auto;
+    padding: 12px 24px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 16px;
+    max-width: 300px;
+    transition: background-color 0.3s ease;
+}
+
+.header a:hover {
+    background-color: #2980b9;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .header iframe,
+    .header a {
+        width: 90%;
+    }
+
+    .header h1 {
+        font-size: 1.4em;
+    }
+
+    .header p {
+        font-size: 0.95em;
+    }
+}
+
+
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+ 
+
+        .nav-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .current-month {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #ecf0f1;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .day-header {
+            background: #34495e;
+            color: white;
+            padding: 15px 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .day {
+            background: white;
+            min-height: 100px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .day:hover {
+            background: #f8f9fa;
+            border-color: #3498db;
+        }
+
+        .day.other-month {
+            background: #f8f9fa;
+            color: #bdc3c7;
+        }
+
+        .day.today {
+            background: #e8f5e8;
+            border-color: #27ae60;
+        }
+
+        .day.has-holiday {
+            background: #ffeaa7;
+        }
+
+        .day-number {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .schedule-active, .schedule-cancelled {
+            font-size: 0.75em;
+            margin-bottom: 2px;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .holiday-form {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .holiday-form h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+
+        .holidays-list {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .holidays-list h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .holiday-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+ 
+        .save-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        /* スマートフォン対応のレスポンシブデザイン */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .header p {
+                font-size: 0.9em;
+            }
+
+            .coaches-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .coach-card {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+
+            .calendar-section {
+                padding: 15px;
+            }
+
+            .month-nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+
+            .current-month {
+                font-size: 1.2em;
+            }
+
+            .calendar {
+                gap: 1px;
+            }
+
+            .day-header {
+                padding: 10px 3px;
+                font-size: 0.8em;
+            }
+
+            .day {
+                min-height: 80px;
+                padding: 5px;
+                font-size: 0.8em;
+            }
+
+            .schedule-active, .schedule-cancelled {
+                font-size: 0.6em;
+                padding: 1px 3px;
+                margin-bottom: 1px;
+            }
+
+            .holiday-form,
+            .holidays-list {
+                padding: 15px;
+            }
+
+            .holiday-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .delete-btn {
+                align-self: flex-end;
+            }
+
+            .save-indicator {
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 0.8em;
+            }
+        }
+
+        /* より小さなスマートフォン対応 */
+        @media (max-width: 480px) {
+            .container {
+                padding: 5px;
+            }
+
+            .header {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.3em;
+            }
+
+            .coaches-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-section {
+                padding: 10px;
+            }
+
+            .day {
+                min-height: 60px;
+                padding: 3px;
+            }
+
+            .day-header {
+                padding: 8px 2px;
+                font-size: 0.7em;
+            }
+
+            .schedule-active, .schedule-cancelled {
+                font-size: 0.5em;
+                padding: 1px 2px;
+            }
+
+            .form-group select,
+            .form-group input {
+                font-size: 16px; /* iOSでのズーム防止 */
+            }
+        }
+
+        /* タブレット対応 */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .coaches-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .day {
+                min-height: 90px;
+            }
+        }
+
+        /* 横向きスマートフォン対応 */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .coaches-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .day {
+                min-height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Yukyco’s Design</h1>
+            <p>度重なるサイバー攻撃によりホームページ制作をお休みさせて頂いております</p>        
+            <p><a href="https://yukyco.wixsite.com/yukyco">業務最適化研究所</a></p>
+            <p><a href="https://prompt-creator.online/woo-yukyco/">WordPressサイトの保守・運用サブスク</a></p>
+             <p><a href="https://prompt-creator.jp/">プロンプトエンジニア養成講座</a></p>
+             <!--<p><a href="https://kindle-seller.netlify.app/">Kindle eBook Store</a></p>-->                      
+           <iframe src="https://calendar.google.com/calendar/embed?src=prettylalatokiki%40gmail.com&ctz=Asia%2FTokyo" style="border: 0" width="600" height="600" frameborder="0" scrolling="no"></iframe>       
+           <iframe width="560" height="315" src="https://www.youtube.com/embed/vCwy3GADD5M?si=AvVvBPNoXtg37J68" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>           
+           <a href="https://coubic.com/5bee402188114af8e5e8/4294580#pageContent"
+   target="_blank"
+   style="display: inline-block; padding: 14px 28px; background-color: #f8b5b5; color: #fff; text-decoration: none; font-size: 18px; border-radius: 12px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  🌸 やさしい無料相談を予約する
+</a>
+<a href="https://coubic.com/5bee402188114af8e5e8/4294580#pageContent"
+   target="_blank"
+   style="display: inline-block; padding: 14px 28px; background-color: #FF6F61; color: #fff; text-decoration: none; font-size: 18px; border-radius: 8px; font-weight: bold;">
+  📅 ご予約はこちら
+</a>
+
+      
+</div>
+
+        <div class="coaches-section">
+            <div class="coaches-grid" id="coachesGrid">
+               </div>
+        </div>
+
+       
+      <!-- キャンバスを表示 -->
+    <canvas id="starCanvas"></canvas>
+
+
+
+    <script>
+      
+ 
+  <!-- 星のスクリプト -->
+ 
+const NUM = 20;
+const SIZE = 0.006;
+const SPEED = 0.06;
+const SCREEN_ROTATION = 0.2;
+
+const canvas = document.getElementById('starCanvas');
+const ctx = canvas.getContext('2d');
+
+function Matrix3() {}
+Matrix3.prototype = {
+  0:1,1:0,2:0,3:0,4:1,5:0,6:0,7:0,8:1,
+  mul: function() {
+    var a = this, b = arguments, c = new Matrix3();
+    c[0]=a[0]*b[0]+a[1]*b[3]+a[2]*b[6];
+    c[1]=a[0]*b[1]+a[1]*b[4]+a[2]*b[7];
+    c[2]=a[0]*b[2]+a[1]*b[5]+a[2]*b[8];
+    c[3]=a[3]*b[0]+a[4]*b[3]+a[5]*b[6];
+    c[4]=a[3]*b[1]+a[4]*b[4]+a[5]*b[7];
+    c[5]=a[3]*b[2]+a[4]*b[5]+a[5]*b[8];
+    c[6]=a[6]*b[0]+a[7]*b[3]+a[8]*b[6];
+    c[7]=a[6]*b[1]+a[7]*b[4]+a[8]*b[7];
+    c[8]=a[6]*b[2]+a[7]*b[5]+a[8]*b[8];
+    return c;
+  },
+  rx: function(t){ var c=Math.cos(t),s=Math.sin(t); return this.mul(1,0,0,0,c,-s,0,s,c); },
+  ry: function(t){ var c=Math.cos(t),s=Math.sin(t); return this.mul(c,0,s,0,1,0,-s,0,c); },
+  rz: function(t){ var c=Math.cos(t),s=Math.sin(t); return this.mul(c,-s,0,s,c,0,0,0,1); }
+};
+
+function Point3d() {}
+Point3d.prototype = {
+  x:0, y:0, z:0,
+  rotate: function(m){
+    var p=new Point3d();
+    p.x=m[0]*this.x+m[1]*this.y+m[2]*this.z;
+    p.y=m[3]*this.x+m[4]*this.y+m[5]*this.z;
+    p.z=m[6]*this.x+m[7]*this.y+m[8]*this.z;
+    return p;
+  }
+};
+
+function random(n){
+  for(var i=0;i<6;i++){ n^=n<<3; n^=n>>2; }
+  return (n&0xffffff)/0x1000000;
+}
+
+function draw(ctx) {
+  const t = new Date() / 1000;
+  const r = new Matrix3().ry(-t * 0.123).rx(0.8).rz(SCREEN_ROTATION);
+  const k = 1 + 1 / NUM;
+
+  for (let i = 0; i < NUM; i++) {
+    let j = t * SPEED + i * k;
+    let p = new Point3d();
+    p.x = random(j); p.y = j % 1; p.z = random(j + 10000);
+    p.x -= 0.5; p.y -= 0.5; p.z -= 0.5;
+    p.y *= -5;
+    p = p.rotate(r);
+    p.x += Math.sin(t * 0.1 + i) * 0.2;
+    p.z += 0.5;
+
+    if (p.z <= 0) continue;
+
+    ctx.save();
+    ctx.globalAlpha = 1 / (p.z + 1.2);
+    ctx.translate(p.x / p.z, p.y / p.z);
+    ctx.scale(SIZE / p.z, SIZE / p.z);
+    ctx.rotate(SCREEN_ROTATION);
+
+    // 丸っこい星を描く
+    ctx.beginPath();
+    const rOuter = 2;
+    const rInner = 0.9;
+    for (let n = 0; n < 10; n++) {
+      const angle = Math.PI * n / 5;
+      const radius = n % 2 === 0 ? rOuter : rInner;
+      const x = Math.sin(angle) * radius;
+      const y = -Math.cos(angle) * radius;
+      if (n === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+
+    const colors = [
+      ['#ffffcc', '#ffccff'],
+      ['#ccffff', '#ffffff'],
+      ['#ffd700', '#fffacd'],
+    ];
+    const rand = Math.floor(Math.random() * colors.length);
+    let grad = ctx.createRadialGradient(0, 0, 0, 0, 0, 3);
+    grad.addColorStop(0, colors[rand][0]);
+    grad.addColorStop(1, colors[rand][1]);
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    ctx.restore();
+  }
+}
+
+function loop() {
+  const scale = Math.max(canvas.width, canvas.height);
+
+  // ✨ 残像処理で尾を残す（本文が暗くならないように工夫）
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.globalCompositeOperation = 'lighter';
+
+  ctx.save();
+  ctx.translate(canvas.width * 0.5, canvas.height * 0.5);
+  ctx.scale(scale, scale);
+  draw(ctx);
+  ctx.restore();
+}
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+setInterval(loop, 16);
+
+function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+
+            if (!Array.isArray(data.holidays)) {
+                alert("インポートデータの形式が正しくありません。");
+                return;
+            }
+
+            holidays = data.holidays;
+            saveData();  // localStorage に保存
+            renderCalendar();  // カレンダー更新
+            renderHolidaysList();  // 一覧更新
+            alert("休みデータをインポートしました。");
+
+        } catch (error) {
+            alert("インポート中にエラーが発生しました: " + error.message);
+        }
+    };
+    reader.readAsText(file);
+}
+
+</script>
+</body>
+</html>
