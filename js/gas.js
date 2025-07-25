@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
       right: ""
     },
     events: function(fetchInfo, successCallback, failureCallback) {
-      fetch("https://script.google.com/macros/s/～～～/exec")
+      fetch("https://script.google.com/macros/s/1_dOaqHwCJpzah-J5p-9mub85xwntFBJPGf0PEI5u5qQ/exec")
         .then(response => response.json())
         .then(data => {
           const events = data.map(item => ({
