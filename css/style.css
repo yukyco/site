@@ -78,6 +78,21 @@
             font-family: 'M PLUS Rounded 1c', sans-serif;
     }
 
+    /* calendar style */
+        #calendar {
+          max-width: 900px;
+          margin: 0 auto;
+          background: #fff;
+          padding: 1rem;
+          border-radius: 12px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    
+        .fc-daygrid-event {
+          cursor: pointer;
+          font-size: 0.9rem;
+        }
+      
 
         /* レスポンシブ対応 */
         @media (max-width: 768px) {
