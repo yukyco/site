@@ -141,8 +141,10 @@
             border-radius: 10px;
             overflow: hidden;
             margin-bottom: 30px;
+            max-height: 650px;
+            overflow-y: auto;
         }
-
+ 
         .day-header {
             background: #34495e;
             color: white;
