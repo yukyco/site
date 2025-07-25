@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>シンプルカレンダー</title>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: "M PLUS Rounded 1c", sans-serif;
+      background: #f7f9fc;
+      padding: 2rem;
+    }
+    #calendar {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center; color:#333;">コーチスケジュールカレンダー</h2>
+  <div id="calendar"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
+        initialView: "dayGridMonth",
+        locale: "ja",
+        headerToolbar: {
+          left: "prev,next today",
+          center: "title",
+          right: ""
+        },
+        events: [
+          {
+            title: "休み",
+            start: "2025-07-27",
+            color: "#87ceeb"
+          },
+          {
+            title: "満席",
+            start: "2025-07-29",
+            color: "#ffa500"
+          }
+        ]
+      });
+      calendar.render();
+    });
+  </script>
+</body>
+</html>
