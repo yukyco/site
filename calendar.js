@@ -4,13 +4,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: "dayGridMonth",
     locale: "ja",
+    height: 650,
     headerToolbar: {
       left: "prev,next today",
       center: "title",
       right: ""
     },
-    height: 650,
-    events: [], // イベントは後から追加 or APIで取得
+    events: "https://script.google.com/macros/s/AKfycby09HS0xD2FQOtm0oW3fab8WxtBRAO-UBrhlg6_-iI/exec",
     eventDidMount: function(info) {
       if (info.event.extendedProps.reason) {
         new bootstrap.Tooltip(info.el, {
