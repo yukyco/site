@@ -6,7 +6,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: font-family: 'M PLUS Rounded 1c', sans-serif;
             /*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
             background: #fff; /* 背景を白など明るくする */
             min-height: 100vh;
@@ -63,7 +63,13 @@
     .header a:hover {
         background-color: #2980b9;
     }
-    
+
+/* fullscreen-calendar */
+    .fc {
+        font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+
     /* レスポンシブ対応 */
     @media (max-width: 768px) {
         .header iframe,
