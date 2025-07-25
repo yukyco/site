@@ -78,22 +78,25 @@
     }
 
 
-    /* レスポンシブ対応 */
-    @media (max-width: 768px) {
-        .header iframe,
-        .header a {
-            width: 90%;
-        }
-    
-        .header h1 {
-            font-size: 1.4em;
-        }
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .header iframe,
+            .header a {
+                width: 90%;
+            }
+        
+            .header h1 {
+                font-size: 1.4em;
+            }
 
-    .header p {
-        font-size: 0.95em;
+        .header p {
+            font-size: 0.95em;
+        }
     }
-}
 
+        #calendar {
+            min-height: 650px; /* JSの指定と揃えておく */
+         }
 
         .header h1 {
             color: #2c3e50;
