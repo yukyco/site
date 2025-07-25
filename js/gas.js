@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
       right: ""
     },
     events: function(fetchInfo, successCallback, failureCallback) {
-      fetch("https://script.google.com/macros/s/1_dOaqHwCJpzah-J5p-9mub85xwntFBJPGf0PEI5u5qQ/exec")
+      fetch("https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLinSHc5qwo7PjMvwnw5K4FDT2r6Z2g9-uYz9ofZ7hLvRGbDNiRhL93D612QnBJlGextkfeCzEyMGqVgAEcUg8Uim4idMVI2H-e8sykr2VhsILQjtId-XbpLIZD7dalGid71GQ8bXRz61osOkb-dyhMppNh65Hq4QP0Llq5kdsqDbqyPxWRtXMpJKz5TP60Gh__BkodSDakvaPd1ZnZ4McLG5Iy7knjBbbPoCzSsN8RYm-pOhU3I2A0QkRt-KWkPSkvyu1DrmDFXOJO4wsUiHSMxlClUKA&lib=MJOA-7YaR8l95WuLF8bv3hnQa-NNQ1Z9i")
         .then(response => response.json())
         .then(data => {
           const events = data.map(item => ({
