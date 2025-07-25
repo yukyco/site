@@ -8,9 +8,10 @@
         body {
             font-family: font-family: 'M PLUS Rounded 1c', sans-serif;
             /*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
-            background: #fff; /* 背景を白など明るくする */
+            background: #afeeee; 
             min-height: 100vh;
             color: #333;
+            padding: 100px;
         }
     
         #starCanvas {
@@ -137,7 +138,7 @@
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 1px;
-            background: #ecf0f1;
+            background: #b0e0e6;
             border-radius: 10px;
             overflow: hidden;
             margin-bottom: 30px;
