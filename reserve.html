@@ -9,6 +9,7 @@
 <body>
   <h2>予約カレンダー</h2>
   <div id="calendar"></div>
+
   <h3 style="margin-top:20px;">予約フォーム</h3>
   <form id="reserveForm">
     <input type="hidden" name="id" id="slotId">
@@ -23,7 +24,7 @@
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'timeGridWeek',
       locale: 'ja',
-      events: "【AKfycbzEa3qO2VUHfKYQZIN_BexIa2k8J6VYkbCVauW-0RQ】",
+      events: "https://script.google.com/macros/s/AKfycbzEa3qO2VUHfKYQZIN_BexIa2k8J6VYkbCVauW-0RQ/exec",
       eventClick: function(info) {
         document.getElementById('slotId').value = info.event.id;
         alert("選択した枠: " + info.event.start.toLocaleString());
@@ -34,16 +35,18 @@
 
   document.getElementById("reserveForm").addEventListener("submit", e => {
     e.preventDefault();
-    fetch("【AKfycbzEa3qO2VUHfKYQZIN_BexIa2k8J6VYkbCVauW-0RQ】", {
+    fetch("https://script.google.com/macros/s/AKfycbzEa3qO2VUHfKYQZIN_BexIa2k8J6VYkbCVauW-0RQ/exec", {
       method: "POST",
       body: new FormData(e.target)
     })
     .then(res => res.text())
-    .then(txt => alert(txt));
+    .then(txt => alert(txt))
+    .catch(err => alert("エラー: " + err));
   });
   </script>
-</body>
-      <!-- キャンバスを表示 
+   <!-- キャンバスを表示 -->
     <canvas id="starCanvas"></canvas>
-     <script src="js/stars.js"></script> --> 
+     <script src="js/stars.js"></script>  <!-- 外部ファイル読み込み -->
+     <script src="js/gas.js"></script>  <!-- 外部ファイル読み込み -->
+</body>
 </html>
