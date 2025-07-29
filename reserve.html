@@ -13,9 +13,15 @@
   <h3 style="margin-top:20px;">予約フォーム</h3>
   <form id="reserveForm">
     <input type="hidden" name="id" id="slotId">
-    <p id="selectedSlot" style="color:blue;">※カレンダーから日付を選択してください</p>
-    <label>お名前：</label><input type="text" name="name" required><br>
-    <label>メールアドレス：</label><input type="email" name="email" required><br>
+    <label>選択した日時：</label>
+    <input type="text" id="slotDateTime" readonly style="width:250px;"><br><br>
+
+    <label>お名前：</label>
+    <input type="text" name="name" required><br><br>
+
+    <label>メールアドレス：</label>
+    <input type="email" name="email" required><br><br>
+
     <button type="submit">予約する</button>
   </form>
 
@@ -27,14 +33,19 @@
       locale: 'ja',
       events: "https://script.google.com/macros/s/AKfycbzEa3qO2VUHfKYQZIN_BexIa2k8J6VYkbCVauW-0RQ/exe",
       eventClick: function(info) {
+        // hiddenフィールドにIDをセット
         document.getElementById('slotId').value = info.event.id;
-        document.getElementById('selectedSlot').innerText =
-          "選択中の日時: " + info.event.start.toLocaleString();
+        // フォームに日時を表示
+        var start = info.event.start;
+        var end = info.event.end;
+        var text = start.toLocaleString() + " 〜 " + end.toLocaleTimeString();
+        document.getElementById('slotDateTime').value = text;
       }
     });
     calendar.render();
   });
 
+  // フォーム送信
   document.getElementById("reserveForm").addEventListener("submit", e => {
     e.preventDefault();
     fetch("https://script.google.com/macros/s/AKfycbzEa3qO2VUHfKYQZIN_BexIa2k8J6VYkbCVauW-0RQ/exe", {
