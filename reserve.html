@@ -19,7 +19,6 @@
     <label>メールアドレス：</label><input type="email" name="email" required><br>
     <button type="submit">予約する</button>
   </form>
-
   <script>
   document.addEventListener("DOMContentLoaded", function() {
     var calendarEl = document.getElementById('calendar');
@@ -28,8 +27,10 @@
       locale: 'ja',
       events: "https://script.google.com/macros/s/AKfycbzEa3qO2VUHfKYQZIN_BexIa2k8J6VYkbCVauW-0RQ/exec",
       eventClick: function(info) {
+        // ここが修正版
         document.getElementById('slotId').value = info.event.id;
-        alert("選択した枠: " + info.event.start.toLocaleString());
+        document.getElementById('selectedSlot').innerText =
+          "選択中の日時: " + info.event.start.toLocaleString();
       }
     });
     calendar.render();
@@ -45,7 +46,7 @@
     .then(txt => alert(txt))
     .catch(err => alert("エラー: " + err));
   });
-  </script>
+</script>
    
 </body>
 </html>
