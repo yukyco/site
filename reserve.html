@@ -14,20 +14,19 @@
   <form id="reserveForm">
     <input type="hidden" name="id" id="slotId">
     <p id="selectedSlot" style="color:blue;">※カレンダーから日付を選択してください</p>
-    <input type="hidden" name="id" id="slotId">
     <label>お名前：</label><input type="text" name="name" required><br>
     <label>メールアドレス：</label><input type="email" name="email" required><br>
     <button type="submit">予約する</button>
   </form>
+
   <script>
   document.addEventListener("DOMContentLoaded", function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'timeGridWeek',
       locale: 'ja',
-      events: "https://script.google.com/macros/s/AKfycbzEa3qO2VUHfKYQZIN_BexIa2k8J6VYkbCVauW-0RQ/exec",
+      events: "https://script.google.com/macros/s/AKfycbzEa3qO2VUHfKYQZIN_BexIa2k8J6VYkbCVauW-0RQ/exe",
       eventClick: function(info) {
-        // ここが修正版
         document.getElementById('slotId').value = info.event.id;
         document.getElementById('selectedSlot').innerText =
           "選択中の日時: " + info.event.start.toLocaleString();
@@ -38,7 +37,7 @@
 
   document.getElementById("reserveForm").addEventListener("submit", e => {
     e.preventDefault();
-    fetch("https://script.google.com/macros/s/AKfycbzEa3qO2VUHfKYQZIN_BexIa2k8J6VYkbCVauW-0RQ/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbzEa3qO2VUHfKYQZIN_BexIa2k8J6VYkbCVauW-0RQ/exe", {
       method: "POST",
       body: new FormData(e.target)
     })
@@ -46,7 +45,6 @@
     .then(txt => alert(txt))
     .catch(err => alert("エラー: " + err));
   });
-</script>
-   
+  </script>
 </body>
 </html>
