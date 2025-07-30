@@ -11,6 +11,7 @@
     <link rel="shortcut icon" href="favicon.ico">
     <!-- responsive Apple etc -->
     <link rel="icon" href="/favicon.png" type="image/png">
+    
      <script src="js/calendar.js"></script>  <!-- 外部ファイル読み込み -->
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVKMGYSGFC"></script>
@@ -20,9 +21,32 @@
       gtag('js', new Date());
       gtag('config', 'G-MVKMGYSGFC'); 
     </script>
-    
 </head>
 <body>
+    <!-- Yukyco's Design ハンバーガーメニュー（ライムグリーンVer.） -->
+        <nav class="navbar">
+          <div class="nav-container">
+            <a href="/" class="nav-logo">Yukyco's Design</a>
+            <div class="menu-toggle" id="menu-toggle">☰</div>
+            <ul class="nav-menu" id="nav-menu">
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/about.html">サービス</a></li>
+              <li><a href="https://www.foriio.com/marinesnow" target="_blank">実績</a></li>
+              <li><a href="https://yukyco.github.io/security-service/" target="_blank">セキュリティ</a></li>
+              <li><a href="/calendar.html">予約カレンダー</a></li>
+              <li><a href="/contact.html">お問い合わせ</a></li>
+            </ul>
+          </div>
+        </nav>
+        
+       
+        
+        <script>
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+          document.getElementById('nav-menu').classList.toggle('active');
+        });
+        </script>
+
     <div class="container">
         <div class="header">
             <h1>Yukyco’s Design</h1>
