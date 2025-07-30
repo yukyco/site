@@ -456,15 +456,26 @@
               padding: 15px;
               border: 2px solid #d6e8c4;
             }
+
             form {
-              max-width: 500px;
-              margin: 30px auto;
+              max-width: 400px;   /* 横幅をコンパクトに */
+              width: 90%;         /* スマホ時は画面にフィット */
+              margin: 30px auto;  /* 中央寄せ */
               padding: 20px;
               background: #fff;
               border-radius: 12px;
               box-shadow: 0 4px 12px rgba(0,0,0,0.05);
               border: 2px solid #d6e8c4;
             }
+            input[type="text"],
+            input[type="email"] {
+              width: 100%;        /* 入力欄はフォーム幅に合わせる */
+              box-sizing: border-box; /* はみ出し防止 */
+            }
+            button {
+              width: 100%;
+            }
+
             label {
               display: block;
               margin-bottom: 6px;
