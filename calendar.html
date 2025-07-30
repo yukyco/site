@@ -29,5 +29,40 @@
 
     <button type="submit">予約する</button>
   </form>
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'timeGridWeek',
+      locale: 'ja',
+      events: "https://script.google.com/macros/s/AKfycbwrMyhDZLa_WLgc-G_LgLeLoOjYVcvjL_XwFZ83jtoF6hryGYZPE93zCAGFqM5uYvRW/exec",  // あなたのGASデプロイURLに差し替え
+      eventClick: function(info) {
+        // hiddenにIDを保存
+        document.getElementById('slotId').value = info.event.id;
+        // 日付と時間をスッキリ表示
+        var start = info.event.start;
+        var end = info.event.end;
+        var text = start.toLocaleDateString("ja-JP") + " "
+                 + start.toLocaleTimeString("ja-JP", { hour: '2-digit', minute:'2-digit' })
+                 + " 〜 "
+                 + end.toLocaleTimeString("ja-JP", { hour: '2-digit', minute:'2-digit' });
+        document.getElementById('slotDateTime').value = text;
+      }
+    });
+    calendar.render();
+  });
+
+  document.getElementById("reserveForm").addEventListener("submit", e => {
+    e.preventDefault();
+    fetch("https://script.google.com/macros/s/AKfycbwrMyhDZLa_WLgc-G_LgLeLoOjYVcvjL_XwFZ83jtoF6hryGYZPE93zCAGFqM5uYvRW/exec", {  // あなたのGASデプロイURL
+      method: "POST",
+      body: new FormData(e.target)
+    })
+    .then(res => res.text())
+    .then(txt => alert(txt))
+    .catch(err => alert("エラー: " + err));
+  });
+  </script>
 </body>
 </html>
