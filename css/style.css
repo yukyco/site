@@ -1,4 +1,4 @@
-    <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -202,7 +202,23 @@
           cursor: pointer;
           color: #2e7d32;
         }
-            
+
+　　　　 /* --- 予約済み表示 --- */
+        .fc-event.available {
+          background-color: #a8e27d !important;  /* ライムグリーン */
+          border: 1px solid #7fbf4d !important;
+          color: #333 !important;
+          font-weight: 500;
+        }
+        
+        .fc-event.reserved {
+          background-color: #c5d9e2 !important;  /* くすみブルー */
+          border: 1px solid #9fb8c4 !important;
+          color: #4a5a66 !important;
+          font-weight: 500;
+          text-decoration: line-through;
+        }
+
         /* --- スマホ表示 --- */
         @media (max-width: 768px) {
           .nav-menu {
