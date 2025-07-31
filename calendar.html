@@ -36,7 +36,7 @@
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'timeGridWeek',
       locale: 'ja',
-      events: "https://script.google.com/macros/s/AKfycbwrMyhDZLa_WLgc-G_LgLeLoOjYVcvjL_XwFZ83jtoF6hryGYZPE93zCAGFqM5uYvRW/exec",  // あなたのGASデプロイURLに差し替え
+      events: "https://script.google.com/macros/s/AKfycbzzeFWthKr3dAH9ak5IbbWTyVeVr9yOxX6wJb2AMk8kyvBlF4AXY6U7d3RAs6faTu27/exec",  // あなたのGASデプロイURLに差し替え
       eventClick: function(info) {
         // hiddenにIDを保存
         document.getElementById('slotId').value = info.event.id;
@@ -55,7 +55,7 @@
 
   document.getElementById("reserveForm").addEventListener("submit", e => {
     e.preventDefault();
-    fetch("https://script.google.com/macros/s/AKfycbwrMyhDZLa_WLgc-G_LgLeLoOjYVcvjL_XwFZ83jtoF6hryGYZPE93zCAGFqM5uYvRW/exec", {  // あなたのGASデプロイURL
+    fetch("https://script.google.com/macros/s/AKfycbzzeFWthKr3dAH9ak5IbbWTyVeVr9yOxX6wJb2AMk8kyvBlF4AXY6U7d3RAs6faTu27/exec", {  // あなたのGASデプロイURL
       method: "POST",
       body: new FormData(e.target)
     })
