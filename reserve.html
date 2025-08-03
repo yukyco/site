@@ -70,6 +70,35 @@
     button:hover {
       background-color: #7cb342;
     }
+    
+    /* スマホ画面用 */
+    @media (max-width: 768px) {
+      #calendar {
+        max-width: 100%;
+        min-height: 500px; /* 高さを確保 */
+        padding: 10px;
+        font-size: 12px;  /* フォント少し小さめ */
+      }
+    
+      form {
+        width: 95%;
+        padding: 15px;
+        font-size: 14px;
+      }
+    
+      label {
+        font-size: 13px;
+      }
+    
+      input, button {
+        font-size: 14px;
+        padding: 8px;
+      }
+    
+      button {
+        padding: 10px;
+      }
+　}
   </style>
 </head>
 <body>
@@ -92,29 +121,38 @@
     <button type="submit">予約する</button>
   </form>
 
+
+
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek',
-        locale: 'ja',
-        events: "https://script.google.com/macros/s/AKfycbzzeFWthKr3dAH9ak5IbbWTyVeVr9yOxX6wJb2AMk8kyvBlF4AXY6U7d3RAs6faTu27/exec",
-        slotMinTime: "09:00:00",
-        slotMaxTime: "22:00:00",
-        slotDuration: "00:30:00",
-        contentHeight: 'auto',
-        expandRows: true,
-        eventClick: function(info) {
-          document.getElementById('slotId').value = info.event.id;
-          var start = info.event.start;
-          var end = info.event.end;
-          var text = start.toLocaleDateString("ja-JP") + " " +
-                     start.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }) +
-                     " 〜 " +
-                     end.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' });
-          document.getElementById('slotDateTime').value = text;
+      initialView: 'timeGridWeek',
+      locale: 'ja',
+      events: "https://script.google.com/macros/s/AKfycbzzeFWthKr3dAH9ak5IbbWTyVeVr9yOxX6wJb2AMk8kyvBlF4AXY6U7d3RAs6faTu27/exec",
+      slotMinTime: "09:00:00",
+      slotMaxTime: "22:00:00",
+      slotDuration: "00:30:00",
+      contentHeight: 'auto',
+      expandRows: true,
+      windowResize: function(view) {
+        if (window.innerWidth < 768) {
+          calendar.changeView('timeGridDay'); // 📱スマホは1日表示
+        } else {
+          calendar.changeView('timeGridWeek'); // 🖥PCは週表示
         }
-      });
+      },
+      eventClick: function(info) {
+        document.getElementById('slotId').value = info.event.id;
+        var start = info.event.start;
+        var end = info.event.end;
+        var text = start.toLocaleDateString("ja-JP") + " " +
+                   start.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }) +
+                   " 〜 " +
+                   end.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('slotDateTime').value = text;
+      }
+    });
       calendar.render();
 
       document.getElementById("reserveForm").addEventListener("submit", e => {
