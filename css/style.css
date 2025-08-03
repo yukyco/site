@@ -239,6 +239,14 @@
           }
         }
         
+        .marquee {
+          width: 100%;
+          overflow: hidden;
+          white-space: nowrap;
+          box-sizing: border-box;
+          font-size: 20px;
+          animation: scrollText 10s linear infinite;
+        }
 
         .current-month {
             font-size: 1.5em;
@@ -680,3 +688,4 @@
                 text-align: center;
               }
             }
+
