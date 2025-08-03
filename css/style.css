@@ -687,6 +687,8 @@
               box-shadow: 0 4px 12px rgba(0,0,0,0.05);
               padding: 15px;
               border: 2px solid #d6e8c4;
+              height: auto;          /* 高さは自動 */
+              min-height: 700px; /* PC用に最低700px確保 */
             }
 
             form {
@@ -815,5 +817,6 @@
                 text-align: center;
               }
             }
+
 
 
