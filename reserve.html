@@ -2,9 +2,9 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>スケジュール予約</title>
+  <title>ご予約カレンダー | Yukyco’s Design</title>
 
-  <!-- FullCalendar 正しいCDN -->
+  <!-- FullCalendar CDN -->
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
@@ -13,17 +13,88 @@
 
   <!-- カスタムCSS -->
   <style>
-    body {
+    body.booking-page {
       font-family: 'M PLUS Rounded 1c', sans-serif;
-      background-color: #f6fdf6;
+      background: #f8fbf5;
       margin: 0;
-      padding: 20px;
       color: #333;
     }
+
+    /* ナビゲーション */
+    .navbar {
+      background: #a5d6a7; /* ライムグリーン */
+      color: #333;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1rem;
+    }
+    .nav-logo {
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: #2e7d32;
+    }
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #2e7d32;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 0.8rem;
+      border-radius: 6px;
+      transition: background 0.3s, color 0.3s;
+    }
+    .nav-menu a:hover {
+      background: #81c784;
+      color: white;
+    }
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #2e7d32;
+    }
+
+    /* スマホ用メニュー */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        background: #a5d6a7;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 1rem 0;
+      }
+      .nav-menu.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+
     h2, h3 {
       text-align: center;
-      color: #4a7c59;
+      color: #4d7c2e;
+      margin-top: 20px;
     }
+
     #calendar {
       max-width: 900px;
       margin: 20px auto;
@@ -35,73 +106,91 @@
       height: auto;
       min-height: 700px;
     }
+
     form {
-      max-width: 500px;
-      margin: 20px auto;
+      max-width: 400px;
+      width: 90%;
+      margin: 30px auto;
       padding: 20px;
       background: #fff;
-      border: 2px solid #d6e8c4;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 2px solid #d6e8c4;
     }
     label {
       display: block;
-      margin-top: 10px;
+      margin-bottom: 6px;
       font-weight: bold;
-      color: #4a7c59;
+      color: #4d7c2e;
     }
-    input, button {
+    input[type="text"],
+    input[type="email"] {
       width: 100%;
       padding: 10px;
-      margin-top: 5px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
+      margin-bottom: 18px;
+      border-radius: 6px;
+      border: 1.5px solid #bcd8a0;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      font-size: 14px;
+      background: #fdfdfc;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      border-color: #7fbf4d;
+      box-shadow: 0 0 4px rgba(127,191,77,0.3);
     }
     button {
-      background-color: #8bc34a;
-      color: white;
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
       font-weight: bold;
+      color: white;
+      background: linear-gradient(135deg, #9cd77d, #7fbf4d);
       border: none;
-      margin-top: 15px;
+      border-radius: 25px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: transform 0.2s, background 0.3s;
     }
     button:hover {
-      background-color: #7cb342;
+      background: linear-gradient(135deg, #7fbf4d, #9cd77d);
+      transform: scale(1.03);
     }
-    
-    /* スマホ画面用 */
-    @media (max-width: 768px) {
-      #calendar {
-        max-width: 100%;
-        min-height: 500px; /* 高さを確保 */
-        padding: 10px;
-        font-size: 12px;  /* フォント少し小さめ */
-      }
-    
-      form {
-        width: 95%;
-        padding: 15px;
-        font-size: 14px;
-      }
-    
-      label {
-        font-size: 13px;
-      }
-    
-      input, button {
-        font-size: 14px;
-        padding: 8px;
-      }
-    
-      button {
-        padding: 10px;
-      }
-　}
+
+    /* イベントの色 */
+    .fc-event.available {
+      background-color: #a8e27d !important;  /* ライムグリーン */
+      border: 1px solid #7fbf4d !important;
+      color: #333 !important;
+      font-weight: 500;
+    }
+    .fc-event.reserved {
+      background-color: #c5d9e2 !important;  /* くすみブルー */
+      border: 1px solid #9fb8c4 !important;
+      color: #4a5a66 !important;
+      font-weight: 500;
+      text-decoration: line-through;
+    }
   </style>
 </head>
-<body>
+<body class="booking-page">
+  <!-- ナビゲーション -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">Yukyco's Design</a>
+      <div class="menu-toggle" id="menu-toggle">☰</div>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="/">ホーム</a></li>
+        <li><a href="/about.html">サービス</a></li>
+        <li><a href="https://www.foriio.com/marinesnow" target="_blank">実績</a></li>
+        <li><a href="https://yukyco.github.io/security-service/" target="_blank">セキュリティ</a></li>
+        <li><a href="/reserve.html">予約カレンダー</a></li>
+        <li><a href="/contact.html">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <h2>ご予約カレンダー</h2>
   <div id="calendar"></div>
 
@@ -121,40 +210,38 @@
     <button type="submit">予約する</button>
   </form>
 
-
-
   <script>
+    // ハンバーガーメニュー
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      document.getElementById('nav-menu').classList.toggle('active');
+    });
+
+    // カレンダー初期化
     document.addEventListener("DOMContentLoaded", function() {
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'timeGridWeek',
-      locale: 'ja',
-      events: "https://script.google.com/macros/s/AKfycbzzeFWthKr3dAH9ak5IbbWTyVeVr9yOxX6wJb2AMk8kyvBlF4AXY6U7d3RAs6faTu27/exec",
-      slotMinTime: "09:00:00",
-      slotMaxTime: "22:00:00",
-      slotDuration: "00:30:00",
-      contentHeight: 'auto',
-      expandRows: true,
-      windowResize: function(view) {
-        if (window.innerWidth < 768) {
-          calendar.changeView('timeGridDay'); // 📱スマホは1日表示
-        } else {
-          calendar.changeView('timeGridWeek'); // 🖥PCは週表示
+        initialView: 'timeGridWeek',
+        locale: 'ja',
+        events: "https://script.google.com/macros/s/AKfycbzzeFWthKr3dAH9ak5IbbWTyVeVr9yOxX6wJb2AMk8kyvBlF4AXY6U7d3RAs6faTu27/exec",
+        slotMinTime: "09:00:00",
+        slotMaxTime: "22:00:00",
+        slotDuration: "00:30:00",
+        contentHeight: 'auto',
+        expandRows: true,
+        eventClick: function(info) {
+          document.getElementById('slotId').value = info.event.id;
+          var start = info.event.start;
+          var end = info.event.end;
+          var text = start.toLocaleDateString("ja-JP") + " " +
+                     start.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }) +
+                     " 〜 " +
+                     end.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' });
+          document.getElementById('slotDateTime').value = text;
         }
-      },
-      eventClick: function(info) {
-        document.getElementById('slotId').value = info.event.id;
-        var start = info.event.start;
-        var end = info.event.end;
-        var text = start.toLocaleDateString("ja-JP") + " " +
-                   start.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }) +
-                   " 〜 " +
-                   end.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' });
-        document.getElementById('slotDateTime').value = text;
-      }
-    });
+      });
       calendar.render();
 
+      // フォーム送信
       document.getElementById("reserveForm").addEventListener("submit", e => {
         e.preventDefault();
         fetch("https://script.google.com/macros/s/AKfycbzzeFWthKr3dAH9ak5IbbWTyVeVr9yOxX6wJb2AMk8kyvBlF4AXY6U7d3RAs6faTu27/exec", {
