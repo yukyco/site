@@ -2,68 +2,212 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>スケジュールカレンダー</title>
-  <!-- FullCalendar CSS -->
+  <title>スケジュール予約</title>
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
-  <!-- Bootstrap CSS for Tooltip -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <style>
+    body {
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      background: #f8fbf5;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #4d7c2e;
+      font-weight: 600;
+      margin: 20px 10px;
+    }
+
+    #calendar {
+      max-width: 900px;
+      margin: 20px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 15px;
+      border: 2px solid #d6e8c4;
+    }
+
+    form {
+      max-width: 500px;
+      width: 90%;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 2px solid #d6e8c4;
+      box-sizing: border-box;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #4d7c2e;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 18px;
+      border-radius: 6px;
+      border: 1.5px solid #bcd8a0;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      font-size: 14px;
+      background: #fdfdfc;
+      box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      border-color: #7fbf4d;
+      box-shadow: 0 0 4px rgba(127,191,77,0.3);
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(135deg, #9cd77d, #7fbf4d);
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #7fbf4d, #9cd77d);
+      transform: scale(1.03);
+    }
+
+    #messageBox {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    /* イベント色 */
+    .fc-event.available {
+      background-color: #a8e27d !important;
+      border: 1px solid #7fbf4d !important;
+      color: #333 !important;
+      font-weight: 500;
+    }
+
+    .fc-event.reserved {
+      background-color: #c5d9e2 !important;
+      border: 1px solid #9fb8c4 !important;
+      color: #4a5a66 !important;
+      font-weight: 500;
+      text-decoration: line-through;
+    }
+
+    /* レスポンシブ */
+    @media (max-width: 768px) {
+      #calendar {
+        width: 95%;
+        padding: 10px;
+      }
+      form {
+        width: 95%;
+        padding: 15px;
+      }
+      button {
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h2, h3 {
+        font-size: 18px;
+      }
+      label {
+        font-size: 13px;
+      }
+      input[type="text"],
+      input[type="email"] {
+        font-size: 13px;
+        padding: 8px;
+      }
+      button {
+        font-size: 13px;
+        padding: 9px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1 style="text-align:center; color:#333;">スケジュールカレンダー</h1>
+  <h2>ご予約カレンダー</h2>
   <div id="calendar"></div>
 
-  <!-- FullCalendar JS -->
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <h3>ご予約フォーム</h3>
+  <form id="reserveForm">
+    <input type="hidden" name="id" id="slotId">
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <label>選択した日時：</label>
+    <input type="text" id="slotDateTime" readonly placeholder="カレンダーから選択してください">
 
-  <!-- 🔽 あなたのデータを取得してカレンダーに表示するJS 🔽 -->
+    <label>お名前：</label>
+    <input type="text" name="name" required placeholder="例：山田花子">
+
+    <label>メールアドレス：</label>
+    <input type="email" name="email" required placeholder="例：hanako@example.com">
+
+    <button type="submit">予約する</button>
+  </form>
+
+  <div id="messageBox"></div>
+
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const calendarEl = document.getElementById("calendar");
-      const calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: "dayGridMonth",
-        locale: "ja",
-        headerToolbar: {
-          left: "prev,next today",
-          center: "title",
-          right: ""
-        },
-        events: [], // 後で fetch で追加
-        eventDidMount: function(info) {
-          if (info.event.extendedProps.reason) {
-            new bootstrap.Tooltip(info.el, {
-              title: info.event.extendedProps.reason,
-              placement: 'top',
-              trigger: 'hover',
-              container: 'body'
-            });
-          }
+    document.addEventListener("DOMContentLoaded", function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        locale: 'ja',
+        events: "YOUR_EXEC_URL", // ←最新デプロイのURLに変更
+        eventClick: function(info) {
+          document.getElementById('slotId').value = info.event.id;
+          var start = info.event.start;
+          var end = info.event.end;
+          var text = start.toLocaleDateString("ja-JP") + " " +
+                     start.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }) +
+                     " 〜 " +
+                     end.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' });
+          document.getElementById('slotDateTime').value = text;
         }
       });
-
       calendar.render();
+    });
 
-      // From GAS 
-      fetch("https://script.google.com/macros/s/AKfycbwCY-CWTKNblinfRQHFspg4FEKuEYMWlfE1e6Jg_7s6MJ74-XdqFnMy1lUXqHY1A5Ts/exec")
-        .then(response => response.json())
-        .then(data => {
-          const events = data.map(item => ({
-            title: item.status,
-            start: item.date,
-            extendedProps: {
-              reason: item.reason
-            }
-          }));
-          calendar.addEventSource(events);
-        })
-        .catch(error => {
-          console.error("データの取得に失敗しました:", error);
-        });
+    document.getElementById("reserveForm").addEventListener("submit", e => {
+      e.preventDefault();
+      fetch("YOUR_EXEC_URL", { // ←最新デプロイのURLに変更
+        method: "POST",
+        body: new FormData(e.target)
+      })
+      .then(res => res.text())
+      .then(txt => {
+        document.getElementById("messageBox").innerText = txt;
+        document.getElementById("messageBox").style.color = "#4d7c2e";
+        e.target.reset();
+        document.getElementById("slotDateTime").value = "";
+      })
+      .catch(err => {
+        document.getElementById("messageBox").innerText = "エラーが発生しました: " + err;
+        document.getElementById("messageBox").style.color = "red";
+      });
     });
   </script>
 </body>
