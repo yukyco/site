@@ -79,14 +79,18 @@
         }
     
         /* calendar style */
-            #calendar {
-              max-width: 900px;
-              margin: 0 auto;
-              background: #fff;
-              padding: 1rem;
-              border-radius: 12px;
-              box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            }
+              #calendar {
+                max-width: 900px;
+                margin: 20px auto;
+                background: #fff;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+                padding: 15px;
+                border: 2px solid #d6e8c4;
+                height: auto;
+                min-height: 700px; /* PCでも十分見える高さに */
+              }
+
         
             .fc-daygrid-event {
               cursor: pointer;
@@ -248,12 +252,6 @@
            padding: 9px;
          }
        }
-
-    }
-
-        #calendar {
-            min-height: 650px; /* JSの指定と揃えておく */
-         }
 
         .header h1 {
             color: #2c3e50;
@@ -817,6 +815,7 @@
                 text-align: center;
               }
             }
+
 
 
 
