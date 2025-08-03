@@ -33,25 +33,25 @@
   <script>
   document.addEventListener("DOMContentLoaded", function() {
     var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'timeGridWeek',
-      locale: 'ja',
-      events: "https://script.google.com/macros/s/AKfycbzzeFWthKr3dAH9ak5IbbWTyVeVr9yOxX6wJb2AMk8kyvBlF4AXY6U7d3RAs6faTu27/exec",  // あなたのGASデプロイURLに差し替え
-      eventClick: function(info) {
-        // hiddenにIDを保存
-        document.getElementById('slotId').value = info.event.id;
-        // 日付と時間をスッキリ表示
-        var start = info.event.start;
-        var end = info.event.end;
-        var text = start.toLocaleDateString("ja-JP") + " "
-                 + start.toLocaleTimeString("ja-JP", { hour: '2-digit', minute:'2-digit' })
-                 + " 〜 "
-                 + end.toLocaleTimeString("ja-JP", { hour: '2-digit', minute:'2-digit' });
-        document.getElementById('slotDateTime').value = text;
-      }
-    });
-    calendar.render();
-  });
+   var calendar = new FullCalendar.Calendar(calendarEl, {
+  initialView: 'timeGridWeek',
+  locale: 'ja',
+  events: "YOUR_EXEC_URL",
+  slotMinTime: "09:00:00",   // 表示開始時間（午前9時）
+  slotMaxTime: "22:00:00",   // 表示終了時間（午後10時）
+  slotDuration: "00:30:00",  // 30分単位で表示
+  eventClick: function(info) {
+    document.getElementById('slotId').value = info.event.id;
+    var start = info.event.start;
+    var end = info.event.end;
+    var text = start.toLocaleDateString("ja-JP") + " " +
+               start.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }) +
+               " 〜 " +
+               end.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('slotDateTime').value = text;
+  }
+});
+
 
   document.getElementById("reserveForm").addEventListener("submit", e => {
     e.preventDefault();
@@ -66,3 +66,4 @@
   </script>
 </body>
 </html>
+
