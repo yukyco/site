@@ -92,6 +92,93 @@
               cursor: pointer;
               font-size: 0.9rem;
             }
+
+       
+       /* 0803追加 */
+       form {
+         max-width: 500px;
+         width: 90%;
+         margin: 20px auto;
+         padding: 20px;
+         background: #fff;
+         border-radius: 12px;
+         box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+         border: 2px solid #d6e8c4;
+         box-sizing: border-box;
+       }
+       
+       label {
+         display: block;
+         margin-bottom: 6px;
+         font-weight: bold;
+         color: #4d7c2e;
+         font-size: 14px;
+       }
+       
+       input[type="text"],
+       input[type="email"] {
+         width: 100%;
+         padding: 10px;
+         margin-bottom: 18px;
+         border-radius: 6px;
+         border: 1.5px solid #bcd8a0;
+         outline: none;
+         transition: border-color 0.3s ease, box-shadow 0.3s ease;
+         font-size: 14px;
+         background: #fdfdfc;
+         box-sizing: border-box;
+       }
+       
+       input[type="text"]:focus,
+       input[type="email"]:focus {
+         border-color: #7fbf4d;
+         box-shadow: 0 0 4px rgba(127,191,77,0.3);
+       }
+       
+       button {
+         display: block;
+         width: 100%;
+         padding: 12px;
+         font-size: 16px;
+         font-weight: bold;
+         color: white;
+         background: linear-gradient(135deg, #9cd77d, #7fbf4d);
+         border: none;
+         border-radius: 25px;
+         cursor: pointer;
+         transition: transform 0.2s, background 0.3s;
+       }
+       
+       button:hover {
+         background: linear-gradient(135deg, #7fbf4d, #9cd77d);
+         transform: scale(1.03);
+       }
+       
+       /* メッセージ表示 */
+       #messageBox {
+         text-align: center;
+         margin-top: 15px;
+         font-weight: bold;
+         font-size: 14px;
+       }
+       
+       /* イベント色 */
+       .fc-event.available {
+         background-color: #a8e27d !important;
+         border: 1px solid #7fbf4d !important;
+         color: #333 !important;
+         font-weight: 500;
+       }
+       
+       .fc-event.reserved {
+         background-color: #c5d9e2 !important;
+         border: 1px solid #9fb8c4 !important;
+         color: #4a5a66 !important;
+         font-weight: 500;
+         text-decoration: line-through;
+       }
+
+ 　　 /* 0803ここまで */
     
         .sidebar-btn {
           display: inline-block;
@@ -122,6 +209,46 @@
         .header p {
             font-size: 0.95em;
         }
+      
+      　/* レスポンシブ 0803追加 */
+       @media (max-width: 768px) {
+         #calendar {
+           width: 95%;
+           padding: 10px;
+         }
+       
+         form {
+           width: 95%;
+           padding: 15px;
+         }
+       
+         button {
+           font-size: 14px;
+           padding: 10px;
+         }
+       }
+       
+       @media (max-width: 480px) {
+         h2, h3 {
+           font-size: 18px;
+         }
+       
+         label {
+           font-size: 13px;
+         }
+       
+         input[type="text"],
+         input[type="email"] {
+           font-size: 13px;
+           padding: 8px;
+         }
+       
+         button {
+           font-size: 13px;
+           padding: 9px;
+         }
+       }
+
     }
 
         #calendar {
@@ -688,4 +815,5 @@
                 text-align: center;
               }
             }
+
 
