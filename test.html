@@ -26,10 +26,9 @@
         </ul>
       </div>
     </nav>
-
-    <!-- お知らせ -->
-    <div class="marquee">お盆休みのお知らせ　2025/8/7 - 8/14</div>  
-
+ 
+    <!-- キャンバス -->
+    <canvas id="starCanvas"></canvas>
     <!-- メインコンテンツ -->
     <div class="container">
         <div class="header">
@@ -41,21 +40,21 @@
                 その経験を活かし、小さな会社が安心して<br>
                 Webを活用できるよう支援しています。
             </p>
-            <div class="link-buttons">
-                <a href="https://yukyco.wixsite.com/yukyco" target="_blank" class="btn">業務最適化研究所</a>
-                <a href="https://yukyco.github.io/security-service/index.html" target="_blank" class="btn">WordPressサイトの保守・運用サブスク</a>
-                <a href="https://prompt-creator.jp/" target="_blank" class="btn">プロンプト×実務スキルで、自分らしい働き方を叶える</a>
-                <a href="https://kindle-seller.netlify.app/" target="_blank" class="btn">Kindle eBook Store</a>
-            </div>
-        </div>
+            
+    <!-- お知らせ -->
+    <div class="marquee">お盆休みのお知らせ　2025/8/7 - 8/14</div> 
+            
+        <div class="link-buttons">
+            <a href="https://yukyco.wixsite.com/yukyco" target="_blank" class="btn">業務最適化研究所</a>
+            <a href="https://yukyco.github.io/security-service/index.html" target="_blank" class="btn">WordPressサイトの保守・運用サブスク</a>
+            <a href="https://prompt-creator.jp/" target="_blank" class="btn">プロンプト×実務スキルで、自分らしい働き方を叶える</a>
+            <a href="https://kindle-seller.netlify.app/" target="_blank" class="btn">Kindle eBook Store</a>
+         </div>
+      </div>
 
         <!-- 予約カレンダー埋め込み -->
-        <iframe src="reserve.html" width="100%" height="600" style="border:0; overflow:auto;" scrolling="yes"></iframe>
+        <iframe src="reserve.html" width="100%" height="300" style="border:0; overflow:auto;" scrolling="yes"></iframe>
     </div><!-- /.container -->
-
-    <!-- キャンバス -->
-    <canvas id="starCanvas"></canvas>
-    <script src="js/stars.js"></script>
 
     <!-- フッター -->
     <footer class="site-footer">
@@ -84,5 +83,8 @@
         document.getElementById('nav-menu').classList.toggle('active');
       });
     </script>
+    <script src="js/stars.js"></script>
+
 </body>
 </html>
+
