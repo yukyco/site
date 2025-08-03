@@ -3,59 +3,131 @@
 <head>
   <meta charset="UTF-8" />
   <title>スケジュール予約</title>
+
+  <!-- FullCalendar 正しいCDN -->
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+  <!-- フォント -->
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+
+  <!-- カスタムCSS -->
+  <style>
+    body {
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      background-color: #f6fdf6;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h2, h3 {
+      text-align: center;
+      color: #4a7c59;
+    }
+    #calendar {
+      max-width: 900px;
+      margin: 20px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 15px;
+      border: 2px solid #d6e8c4;
+      height: auto;
+      min-height: 700px;
+    }
+    form {
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border: 2px solid #d6e8c4;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #4a7c59;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #8bc34a;
+      color: white;
+      font-weight: bold;
+      border: none;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #7cb342;
+    }
+  </style>
 </head>
 <body>
-  <h2>予約カレンダー</h2>
+  <h2>ご予約カレンダー</h2>
   <div id="calendar"></div>
 
-  <h3 style="margin-top:20px;">予約フォーム</h3>
+  <h3>ご予約フォーム</h3>
   <form id="reserveForm">
     <input type="hidden" name="id" id="slotId">
+
     <label>選択した日時：</label>
-    <input type="text" id="slotDateTime" readonly style="width:250px;"><br><br>
+    <input type="text" id="slotDateTime" readonly placeholder="カレンダーから選択してください">
 
     <label>お名前：</label>
-    <input type="text" name="name" required><br><br>
+    <input type="text" name="name" required placeholder="例：山田花子">
 
     <label>メールアドレス：</label>
-    <input type="email" name="email" required><br><br>
+    <input type="email" name="email" required placeholder="例：hanako@example.com">
 
     <button type="submit">予約する</button>
   </form>
 
   <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'timeGridWeek',
-      locale: 'ja',
-      events: "https://script.google.com/macros/s/AKfycbzEa3qO2VUHfKYQZIN_BexIa2k8J6VYkbCVauW-0RQ/exe",
-      eventClick: function(info) {
-        // hiddenフィールドにIDをセット
-        document.getElementById('slotId').value = info.event.id;
-        // フォームに日時を表示
-        var start = info.event.start;
-        var end = info.event.end;
-        var text = start.toLocaleString() + " 〜 " + end.toLocaleTimeString();
-        document.getElementById('slotDateTime').value = text;
-      }
-    });
-    calendar.render();
-  });
+    document.addEventListener("DOMContentLoaded", function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        locale: 'ja',
+        events: "https://script.google.com/macros/s/AKfycbzzeFWthKr3dAH9ak5IbbWTyVeVr9yOxX6wJb2AMk8kyvBlF4AXY6U7d3RAs6faTu27/exec",
+        slotMinTime: "09:00:00",
+        slotMaxTime: "22:00:00",
+        slotDuration: "00:30:00",
+        contentHeight: 'auto',
+        expandRows: true,
+        eventClick: function(info) {
+          document.getElementById('slotId').value = info.event.id;
+          var start = info.event.start;
+          var end = info.event.end;
+          var text = start.toLocaleDateString("ja-JP") + " " +
+                     start.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }) +
+                     " 〜 " +
+                     end.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' });
+          document.getElementById('slotDateTime').value = text;
+        }
+      });
+      calendar.render();
 
-  // フォーム送信
-  document.getElementById("reserveForm").addEventListener("submit", e => {
-    e.preventDefault();
-    fetch("https://script.google.com/macros/s/AKfycbzEa3qO2VUHfKYQZIN_BexIa2k8J6VYkbCVauW-0RQ/exe", {
-      method: "POST",
-      body: new FormData(e.target)
-    })
-    .then(res => res.text())
-    .then(txt => alert(txt))
-    .catch(err => alert("エラー: " + err));
-  });
+      document.getElementById("reserveForm").addEventListener("submit", e => {
+        e.preventDefault();
+        fetch("https://script.google.com/macros/s/AKfycbzzeFWthKr3dAH9ak5IbbWTyVeVr9yOxX6wJb2AMk8kyvBlF4AXY6U7d3RAs6faTu27/exec", {
+          method: "POST",
+          body: new FormData(e.target)
+        })
+        .then(res => res.text())
+        .then(txt => alert(txt))
+        .catch(err => alert("エラー: " + err));
+      });
+    });
   </script>
 </body>
 </html>
