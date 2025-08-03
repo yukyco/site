@@ -109,4 +109,33 @@ body {
   font-size: 1rem;
 }
 
+.link-buttons {
+  display: flex;
+  flex-direction: column; /* 縦並び */
+  gap: 15px;             /* ボタン間の余白 */
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.link-buttons .btn {
+  display: block;
+  text-align: center;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #a5d6a7, #81c784);
+  color: #2e7d32;
+  font-weight: bold;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.link-buttons .btn:hover {
+  background: linear-gradient(135deg, #81c784, #66bb6a);
+  color: white;
+  transform: translateY(-2px);
+}
+
+
 
