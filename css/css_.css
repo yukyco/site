@@ -1,0 +1,159 @@
+    body {
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      background: #f8fbf5;
+      margin: 0;
+      color: #333;
+    }
+
+    /* ナビゲーション */
+    .navbar {
+      background: #a5d6a7; /* ライムグリーン */
+      color: #333;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1rem;
+    }
+    .nav-logo {
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: #2e7d32;
+    }
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu a {
+      color: #2e7d32;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 0.8rem;
+      border-radius: 6px;
+      transition: background 0.3s, color 0.3s;
+    }
+    .nav-menu a:hover {
+      background: #81c784;
+      color: white;
+    }
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #2e7d32;
+    }
+
+    /* スマホ用メニュー */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        background: #a5d6a7;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 1rem 0;
+      }
+      .nav-menu.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #4d7c2e;
+      margin-top: 20px;
+    }
+
+    #calendar {
+      max-width: 900px;
+      margin: 20px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 15px;
+      border: 2px solid #d6e8c4;
+      height: auto;
+      min-height: 700px;
+    }
+
+    form {
+      max-width: 400px;
+      width: 90%;
+      margin: 30px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 2px solid #d6e8c4;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #4d7c2e;
+    }
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 18px;
+      border-radius: 6px;
+      border: 1.5px solid #bcd8a0;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      font-size: 14px;
+      background: #fdfdfc;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      border-color: #7fbf4d;
+      box-shadow: 0 0 4px rgba(127,191,77,0.3);
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(135deg, #9cd77d, #7fbf4d);
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+    button:hover {
+      background: linear-gradient(135deg, #7fbf4d, #9cd77d);
+      transform: scale(1.03);
+    }
+
+    /* イベントの色 */
+    .fc-event.available {
+      background-color: #a8e27d !important;  /* ライムグリーン */
+      border: 1px solid #7fbf4d !important;
+      color: #333 !important;
+      font-weight: 500;
+    }
+    .fc-event.reserved {
+      background-color: #c5d9e2 !important;  /* くすみブルー */
+      border: 1px solid #9fb8c4 !important;
+      color: #4a5a66 !important;
+      font-weight: 500;
+      text-decoration: line-through;
+    }
