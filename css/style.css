@@ -40,11 +40,11 @@ body {
 
 /* 横並びにする */
 .nav-menu {
-  list-style: none;  /* ● を消す */
-  display: flex;     /* 横並び */
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
+  list-style: none !important;
+  display: flex !important;
+  gap: 1rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .nav-menu li { margin: 0; }
@@ -108,4 +108,5 @@ body {
   color: #555;
   font-size: 1rem;
 }
+
 
