@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>ご予約カレンダー | Yukyco’s Design</title>
+  <link rel="stylesheet" href="css/booking.css">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- FullCalendar CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+  <!-- フォント -->
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+</head>
+ <body class="booking-page">
+   <!-- ナビゲーション -->
+   <nav class="navbar">
+     <div class="nav-container">
+       <a href="/" class="nav-logo">Yukyco's Design</a>
+       <div class="menu-toggle" id="menu-toggle">☰</div>
+       <ul class="nav-menu" id="nav-menu">
+         <li><a href="/">ホーム</a></li>
+         <li><a href="/about.html">サービス</a></li>
+         <li><a href="https://www.foriio.com/marinesnow" target="_blank">実績</a></li>
+         <li><a href="https://yukyco.github.io/security-service/" target="_blank">セキュリティ</a></li>
+         <li><a href="/reserve.html">予約カレンダー</a></li>
+         <li><a href="/contact.html">お問い合わせ</a></li>
+       </ul>
+     </div>
+   </nav>
+
+  <h2>ご予約カレンダー</h2>
+  <div id="calendar"></div>
+
+  <h3>ご予約フォーム</h3>
+  <form id="reserveForm">
+    <input type="hidden" name="id" id="slotId">
+
+    <label>選択した日時：</label>
+    <input type="text" id="slotDateTime" readonly placeholder="カレンダーから選択してください">
+
+    <label>お名前：</label>
+    <input type="text" name="name" required placeholder="例：山田花子">
+
+    <label>メールアドレス：</label>
+    <input type="email" name="email" required placeholder="例：hanako@example.com">
+
+    <button type="submit">予約する</button>
+  </form>
+
+  <script>
+    // ハンバーガーメニュー
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      document.getElementById('nav-menu').classList.toggle('active');
+    });
+
+    // カレンダー初期化
+    document.addEventListener("DOMContentLoaded", function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        locale: 'ja',
+        events: "https://script.google.com/macros/s/AKfycbzzeFWthKr3dAH9ak5IbbWTyVeVr9yOxX6wJb2AMk8kyvBlF4AXY6U7d3RAs6faTu27/exec",
+        slotMinTime: "09:00:00",
+        slotMaxTime: "22:00:00",
+        slotDuration: "00:30:00",
+        contentHeight: 'auto',
+        expandRows: true,
+        eventClick: function(info) {
+          document.getElementById('slotId').value = info.event.id;
+          var start = info.event.start;
+          var end = info.event.end;
+          var text = start.toLocaleDateString("ja-JP") + " " +
+                     start.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' }) +
+                     " 〜 " +
+                     end.toLocaleTimeString("ja-JP", { hour: '2-digit', minute: '2-digit' });
+          document.getElementById('slotDateTime').value = text;
+        }
+      });
+      calendar.render();
+
+      // フォーム送信
+      document.getElementById("reserveForm").addEventListener("submit", e => {
+        e.preventDefault();
+        fetch("https://script.google.com/macros/s/AKfycbzzeFWthKr3dAH9ak5IbbWTyVeVr9yOxX6wJb2AMk8kyvBlF4AXY6U7d3RAs6faTu27/exec", {
+          method: "POST",
+          body: new FormData(e.target)
+        })
+        .then(res => res.text())
+        .then(txt => alert(txt))
+        .catch(err => alert("エラー: " + err));
+      });
+    });
+  </script>
+        
+      <div class="footer-bottom">
+        <p>&copy; 2025 Yukyco's Design. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+</body>
+</html>
